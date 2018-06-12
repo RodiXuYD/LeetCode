@@ -1,0 +1,36 @@
+/**
+ *C++ source
+ */
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int l = s.length(); // length of s
+        int sl = 0, rl = 0, start = 0;
+        char *c = new char[l+1];
+        strcpy(c,s.data());
+        int i = 0, j = 0;
+        bool restart = false;
+        for(i = 0; i < l; i++)
+        {
+            for(j = start; j < i; j++)
+            {
+                if(c[i] == c[j])
+                {
+                    rl = sl > rl ? sl : rl;
+                    sl-=(j-start);
+                    start = ++j;
+                    restart = true;
+                    break;
+                }
+            }
+            if(!restart)
+                sl++;
+            else
+                restart = false;
+        }
+        
+        return sl > rl ? sl : rl;
+    }
+
+};
